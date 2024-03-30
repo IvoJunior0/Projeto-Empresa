@@ -4,11 +4,10 @@ import java.util.ArrayList;
 public class App {
     // VARIÁVEIS GLOBAIS
     public static Scanner input = new Scanner(System.in);
+    public static int estoqueMorango = 10, estoqueGoiaba = 10, estoqueAbacaxi = 10, estoqueKiwi = 10, estoqueLaranja = 10, estoqueCaja = 10, estoqueCupuacu = 10, estoqueBacuri = 10, estoqueMelancia = 10, estoqueAcerola = 10;
     public static void main(String[] args) throws Exception {
         // VARIÁVEIS LOCAIS
         int login, senha;
-        int estoqueMorango, estoqueGoiaba, estoqueAbacaxi, estoqueKiwi, estoqueLaranja, estoqueCaja, estoqueCupuacu, estoqueBacuri, estoqueMelancia, estoqueAcerola;
-        estoqueMorango = estoqueGoiaba = estoqueAbacaxi = estoqueKiwi = estoqueLaranja = estoqueCaja = estoqueCupuacu = estoqueBacuri = estoqueMelancia = estoqueAcerola = 10;
         int novoPedido = 1;
         int i = 1; // Index da venda
         int relatorio = 1;
@@ -26,19 +25,9 @@ public class App {
         // PROGRAMA PRINCIPAL
         do {
             int qtdSabores = 0;
-            System.out.printf("\n\n-> Cliente %d\n\n", i);
+            System.out.printf("\n\n-> Cliente %d\n", i);
             // MENU PRINCIPAL
-            System.out.println("=== SUCÃO ===");
-            System.out.println("1. Morango - R$10,00");
-            System.out.println("2. Goiaba - R$10,00");
-            System.out.println("3. Abacaxi com hortelã - R$10,00");
-            System.out.println("4. Kiwi - R$10,00");
-            System.out.println("5. Laranja - R$10,00");
-            System.out.println("6. Cajá - R$10,00");
-            System.out.println("7. Cupuaçu - R$10,00");
-            System.out.println("8. Bacuri - R$10,00");
-            System.out.println("9. Melancia - R$10,00");
-            System.out.println("10. Acerola - R$10,00");
+            showMenu();
             // Repetir a quantidade de sabores enquanto a opção for inválida
             do {
                 // Variáveis do pedido
@@ -58,32 +47,38 @@ public class App {
                             int sabor = input.nextInt();
                             switch(sabor){
                                 case 1:
-                                    if (estoqueMorango == 0) {
-                                        estoqueVazio = true;
-                                        System.out.println("O estoque desse sabor está indisponível");
-                                        int trocar = 2;
-                                        do {
-                                            System.out.println("Deseja trocar o sabor? (1. Sim - 2. Não)");
-                                            trocar = input.nextInt();
-                                            switch(trocar){
-                                                case 1:
-                                                    break;
-                                                case 2:
-                                                    break;
-                                                default:
-                                                    System.out.println("Opção inválida");
-                                                    trocar = 3;
-                                                    break;
-                                            }
-                                        } while(trocar == 3);
-                                    } else {
-                                        if (estoqueMorango == 0) { // Feedback para o usuário
-                                            System.out.println("O estoque acabou de ser zerado");
-                                        }
-                                        saboresPedidos.add("Morango");
-                                        estoqueMorango--;
-                                        valorSabores += 10;
-                                    }
+                                    valorSabores = calcularValorSabores(estoqueMorango, estoqueVazio, valorSabores, "Morango");
+                                    break;
+                                case 2:
+                                    valorSabores = calcularValorSabores(estoqueGoiaba, estoqueVazio, valorSabores, "Goiaba");
+                                    break;
+                                case 3:
+                                    valorSabores = calcularValorSabores(estoqueAbacaxi, estoqueVazio, valorSabores, "Abacaxi");
+                                    break;
+                                case 4:
+                                    valorSabores = calcularValorSabores(estoqueKiwi, estoqueVazio, valorSabores, "Kiwi");
+                                    break;
+                                case 5:
+                                    valorSabores = calcularValorSabores(estoqueLaranja, estoqueVazio, valorSabores, "Laranja");
+                                    break;
+                                case 6:
+                                    valorSabores = calcularValorSabores(estoqueCaja, estoqueVazio, valorSabores, "Caja");
+                                    break;
+                                case 7:
+                                    valorSabores = calcularValorSabores(estoqueCupuacu, estoqueVazio, valorSabores, "Cupuacu");
+                                    break;
+                                case 8:
+                                    valorSabores = calcularValorSabores(estoqueBacuri, estoqueVazio, valorSabores, "Bacuri");
+                                    break;
+                                case 9:
+                                    valorSabores = calcularValorSabores(estoqueMelancia, estoqueVazio, valorSabores, "Melancia");
+                                    break;
+                                case 10:
+                                    valorSabores = calcularValorSabores(estoqueAcerola, estoqueVazio, valorSabores, "Acerola");
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida");
+                                    break;
                             }
                         }
                     }
@@ -136,7 +131,7 @@ public class App {
                     }
                 } while(relatorio == 3);
             }
-            // MENU "DESEJA CONTINUAR?"
+            // Opção de fazer mais um pedido"
             do {
                 System.out.println("Deseja fazer um novo pedido? 1. Sim - 2. Não");
                 novoPedido = input.nextInt();
@@ -149,10 +144,32 @@ public class App {
         System.out.println("Obrigado por usar nosso sistema! :)");
     }
     // MÉTODOS
-    public static ArrayList<Object> calcularSabor(int estoque, boolean vazio, ArrayList<String> sabores, int valor) {
-        ArrayList<Object> retorno = new ArrayList <>();
+    public static void showMenu() {
+        System.out.println("\n=== SUCÃO ===");
+        System.out.println("1. Morango - R$10,00");
+        System.out.println("2. Goiaba - R$10,00");
+        System.out.println("3. Abacaxi com hortelã - R$10,00");
+        System.out.println("4. Kiwi - R$10,00");
+        System.out.println("5. Laranja - R$10,00");
+        System.out.println("6. Cajá - R$10,00");
+        System.out.println("7. Cupuaçu - R$10,00");
+        System.out.println("8. Bacuri - R$10,00");
+        System.out.println("9. Melancia - R$10,00");
+        System.out.println("10. Acerola - R$10,00");
+    }
+    public static int calcularValorSabores(int estoque, boolean vazio, int valor, String sabor) {
         if (estoque == 0) {
             vazio = true;
+        } else {
+            if (estoque == 0) { // Feedback para o usuário
+                System.out.println("O estoque acabou de ser zerado");
+            }
+            valor += 10;
+        }
+        return valor;
+    }
+    public static String trocarSabor(String sabor, boolean vazio) {
+        if (vazio) {
             System.out.println("O estoque desse sabor está indisponível");
             int trocar = 2;
             do {
@@ -160,33 +177,61 @@ public class App {
                 trocar = input.nextInt();
                 switch(trocar){
                     case 1:
+                        showMenu();
+                        System.out.println("Novo sabor: ");
+                        int novoSabor = input.nextInt();
+                        switch(novoSabor){
+                            case 1:
+                                sabor = "Morango";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 2:
+                                sabor = "Goiaba";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 3:
+                                sabor = "Abacaxi com hortelã";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 4:
+                                sabor = "Kiwi";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 5:
+                                sabor = "Laranja";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 6:
+                                sabor = "Cajá";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 7:
+                                sabor = "Cupuaçu";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 8:
+                                sabor = "Bacuri";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 9:
+                                sabor = "Melancia";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                            case 10:
+                                sabor = "Acerola";
+                                System.out.printf("Sabor escolhido: %s", sabor);
+                                break;
+                        }
                         break;
                     case 2:
-                        break;
+                        return null;
                     default:
                         System.out.println("Opção inválida");
                         trocar = 3;
                         break;
                 }
             } while(trocar == 3);
-        } else {
-            if (estoque == 0) { // Feedback para o usuário
-                System.out.println("O estoque acabou de ser zerado");
-            }
-            sabores.add("Morango");
-            estoque--;
-            valor += 10;
         }
-        return retorno;
-    }
-    public static void adicionarSabor(boolean vazio, int numeroSabor, int cliente) {
-        if (!vazio) {
-            System.out.printf("%dº Sabor do cliente %d\n", numeroSabor, cliente);
-            int sabor = input.nextInt();
-            switch(sabor){
-                case 1:
-                    break;
-            }
-        }
+        return sabor;
     }
 }
