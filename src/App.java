@@ -4,19 +4,21 @@ import java.util.ArrayList;
 public class App {
     // VARIÁVEIS GLOBAIS
     public static Scanner input = new Scanner(System.in);
-    public static int estoqueMorango = 2, estoqueGoiaba = 10, estoqueAbacaxi = 10, estoqueKiwi = 10, estoqueLaranja = 10, estoqueCaja = 10, estoqueCupuacu = 10, estoqueBacuri = 10, estoqueMelancia = 10, estoqueAcerola = 10; // Estoque de cada sabor
+    public static int estoqueMorango = 2, estoqueGoiaba = 0, estoqueAbacaxi = 10, estoqueKiwi = 10, estoqueLaranja = 10, estoqueCaja = 10, estoqueCupuacu = 10, estoqueBacuri = 10, estoqueMelancia = 10, estoqueAcerola = 10; // Estoque de cada sabor
     public static boolean estoqueVazioMorango = false, estoqueVazioGoiaba = false, estoqueVazioAbacaxi = false, estoqueVazioKiwi = false, estoqueVazioLaranja = false, estoqueVazioCaja = false, estoqueVazioCupuacu = false, estoqueVazioBacuri = false, estoqueVazioMelancia = false, estoqueVazioAcerola = false; // Estado de todos os estoques
     public static boolean estoqueVazio = false; // Estado do estoque total
+    // MÉTODO PRINCIPAL
     public static void main(String[] args) throws Exception {
         // Variáveis principais do método main
         int login, senha;
-        int novoPedido = 1;
+        int novoCliente = 1;
         int i = 1; // Index da venda
         int relatorio = 1;
         boolean pedidoCancelado = false;
         ArrayList<String> saboresPedidos = new ArrayList<String>();
         int qtdCopos = 0;
-        int valorPedido = 0;
+        double valorTotal = 0.0;
+        int qtdTotalCopos = 0;
         // Tela inicial
         System.out.println("\033[0;1m=================================");
         System.out.println("| BEM VINDOS A EMPRESA DE SUCOS |");
@@ -38,13 +40,15 @@ public class App {
             }
         } while (login != 111 || senha != 111);
         // Programa principal
-        while (novoPedido == 1) {
+        while (novoCliente == 1) {
+            double valorPedido = 0.0;
+            int opcaoNovoSabor = 2;
             int qtdSabores = 0;
             System.out.printf("\n\n-> Cliente %d\n", i);
-            // Menu de opções
-            showMenu();
             // Repetir a quantidade de sabores enquanto a opção for inválida
             do {
+                // Menu de opções
+                showMenu();
                 // Variáveis do pedido
                 int valorSabores = 0; // Valor total dos sabores na compra
                 int confirmacaoPedido = 1;
@@ -142,7 +146,8 @@ public class App {
                                     saboresPedidos.add(resultadoTroca);
                                     break;
                                 default:
-                                    System.out.println("Opção inválida");
+                                    System.out.println("\n! Opção inválida");
+                                    s--; // Ele repete o for mais uma vez
                                     break;
                             }
                         }
@@ -151,20 +156,35 @@ public class App {
                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atualizando os valores do array
                     estoqueVazio = checarTodosEstoques(todosEstoques);
                     if (!estoqueVazio) {
-                        System.out.println("\nQuantidade de copos desejados");
-                        qtdCopos = input.nextInt();
-                        valorPedido = valorSabores * qtdCopos;
+                        do {
+                            System.out.println("\nQuantidade de copos desejados");
+                            qtdCopos = input.nextInt();
+                            if (qtdCopos < 0) {
+                                System.out.println("\n-> Números negativos são inválidos!");
+                            } else if (qtdCopos == 0) {
+                                System.out.println("\n-> Valores nulos são invalidos!");
+                            } else {
+                                valorPedido = valorSabores * qtdCopos;
+                            }
+                        } while (qtdCopos <= 0);
                     }
+                    // Imprimindo informações do pedido
+                    System.out.println("\nInformações do pedido");
+                    System.out.println("Sabores: " + saboresPedidos);
+                    System.out.println("Quantidade copos: " + qtdCopos);
+                    System.out.printf("Valor do pedido: R$%.2f\n", valorPedido);
                     // Confirmação de pedido
                     do {
                         System.out.println("\n!- Confirme o pedido: (1. Confirmar - 2. Cancelar)");
                         confirmacaoPedido = input.nextInt();
                         switch(confirmacaoPedido){
-                            case 1:
+                            case 1: // Confirmado
                                 pedidoCancelado = false;
+                                valorTotal += valorPedido;
+                                qtdTotalCopos += qtdCopos;
                                 System.out.println("\nPedido confirmado com sucesso!");
                                 break;
-                            case 2:
+                            case 2: // Cancelado
                                 pedidoCancelado = true;
                                 saboresPedidos.clear();
                                 qtdCopos = 0;
@@ -172,44 +192,41 @@ public class App {
                                 System.out.println("\nSeu pedido foi cancelado!");
                                 break;
                             default:
-                                System.out.println("Opção inválida");
+                                System.out.println("\n-> Opção inválida!");
                                 break;
                         }
                     } while(confirmacaoPedido != 1 && confirmacaoPedido != 2); // Repetir enquanto o input for inválido
+                    // Novo suco
+                    do {
+                        System.out.println("\n! Deseja pedir um novo suco? 1. Sim - 2.Não");
+                        opcaoNovoSabor = input.nextInt();
+                        if (opcaoNovoSabor != 1 && opcaoNovoSabor != 2) {
+                            System.out.println("\n> Opção inválida");
+                        }
+                    } while(opcaoNovoSabor != 1 && opcaoNovoSabor != 2);
                 } else {
-                    System.out.println("-> Por favor, digite uma quantidade válida");
+                    System.out.println("\n-> Por favor, digite uma quantidade válida");
                 }
-            } while (qtdSabores < 1 || qtdSabores > 3);
-            // Gerar relatório
-            if (!pedidoCancelado) {
-                do {
-                    System.out.println("\nDeseja imprimir um relatório da compra? (1. Sim - 2. Não)");
-                    relatorio = input.nextInt();
-                    switch(relatorio){
-                        case 1:
-                            System.out.println("\n\033[0;1m===== Relatório =====");
-                            System.out.println("Sabores pedidos: " + saboresPedidos);
-                            System.out.println("Quantidade: " + qtdCopos);
-                            System.out.println("Valor do pedido: R$" + valorPedido);
-                            break;
-                        case 2:
-                            break;
-                        default:
-                            System.out.println("Opção inválida");
-                            relatorio = 3;
-                            break;
-                    }
-                } while(relatorio == 3);
-            }
-            // Opção de fazer mais um pedido"
+            } while ((qtdSabores < 1 || qtdSabores > 3) || (opcaoNovoSabor == 1));
+            // Gerar relatório da compra
+            System.out.println("\n\033[0;1m===== Relatório de venda =====");
+            System.out.printf("Quantidade de sucos vendidos: %d\n", qtdTotalCopos);
+            System.out.printf("Valor total: R$%.2f\n", valorTotal);
+            // Cadastrar novo cliente
             do {
-                System.out.println("\n\033[0mDeseja fazer um novo pedido? 1. Sim - 2. Não");
-                novoPedido = input.nextInt();
-                if (novoPedido != 1 && novoPedido != 2) {
-                    System.out.println("\n= ! Por favor, escolha uma opção válida\n");
+                System.out.println("\n\033[0mDeseja cadastrar um novo cliente? 1. Sim - 2. Não");
+                novoCliente = input.nextInt();
+                switch(novoCliente) {
+                    case 1:
+                        i++;
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
                 }
-            } while (novoPedido != 1 && novoPedido != 2);
-            i++;
+            } while (novoCliente != 1 && novoCliente != 2);
         }
         System.out.println("Obrigado por usar nosso sistema! :)");
     }
@@ -241,7 +258,7 @@ public class App {
             System.out.println("O estoque acabou de ser zerado");
         }
         valor += 10;
-        return valor;
+        return valor; // Retorna o valor dos sabores do pedido
     }
     public static String trocarSabor(String sabor, boolean vazio, boolean[] todosEstoques) {
         if (!vazio) {
@@ -311,39 +328,59 @@ public class App {
         boolean novoSaborValido = true;
         if (estadoAntigoSabor) { // Se o estoque do antigo sabor estiver esgotado
             do {
-                System.out.println("! Estoque deste sabor está esgotado");
+                System.out.println("\n! Estoque deste sabor está esgotado");
                 System.out.println("-> Por favor, Escolha outro sabor: ");
                 opcaoNovoSabor = input.nextInt();
                 switch(opcaoNovoSabor){
                     case 1: // Morango
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioMorango);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Morango");
+                        estoqueMorango--;
                         break;
                     case 2: // Goiaba
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioGoiaba);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Goiaba");
+                        estoqueGoiaba--;
                         break;
                     case 3: // Abacaxi
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioAbacaxi);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Abacaxi");
+                        estoqueAbacaxi--;
                         break;
                     case 4: // Kiwi
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioKiwi);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Kiwi");
+                        estoqueKiwi--;
                         break;
                     case 5: // Laranja
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioLaranja);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Laranja");
+                        estoqueLaranja--;
                         break;
                     case 6: // Cajá
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioCaja);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Cajá");
+                        estoqueCaja--;
                         break;
                     case 7: // Cupuaçu
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioCupuacu);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Cupuaçu");
+                        estoqueCupuacu--;
                         break;
                     case 8: // Bacuri
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioBacuri);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Bacuri");
+                        estoqueBacuri--;
                         break;
                     case 9: // Melancia
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioMelancia);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Melancia");
+                        estoqueMelancia--;
                         break;
                     case 10: // Acerola
                         novoSaborValido = testarEstadoNovoSabor(estoqueVazioAcerola);
+                        novoSabor = adicionandoNovoSabor(novoSaborValido, "Acerola");
+                        estoqueAcerola--;
                         break;
                     default:
                         System.out.println("Opção inválida");
@@ -358,6 +395,12 @@ public class App {
         boolean novoEstadoEstoque = (estoque) ? false : true;
         return novoEstadoEstoque;
     }
+    public static String adicionandoNovoSabor(boolean saborValido, String novoSabor) { // Retorna o novo sabor se ele estiver disponível
+        if (!saborValido) {
+            return null;
+        }
+        return novoSabor;
+    }
     public static int calcularEstoque(boolean vazio, int estoque, int quantidadeDiminuida) {
         if (estoque <= 0) {
             return 0;
@@ -368,10 +411,10 @@ public class App {
     public static boolean checarTodosEstoques(boolean[] array) {
         int total = 0; // Contador de estoques vazios
         for(int i = 0; i < array.length; i++) {
-            if (array[i]) {
+            if (array[i]) { // Testar se algum estoque está vazio
                 total++;
             }
-            if (total == 10) { // Se todos os estoques estiverem vazios
+            if (total == 10) {
                 return true;
             }
          }
