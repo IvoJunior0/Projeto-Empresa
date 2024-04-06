@@ -13,7 +13,6 @@ public class App {
         int login, senha;
         int novoCliente = 1;
         int i = 1; // Index da venda
-        int relatorio = 1;
         boolean pedidoCancelado = false;
         ArrayList<String> saboresPedidos = new ArrayList<String>();
         int qtdCopos = 0;
@@ -68,7 +67,6 @@ public class App {
                                 case 1: // Morango
                                     estoqueMorango = calcularEstoque(estoqueVazioMorango, estoqueMorango, 1);
                                     estoqueVazioMorango = retornarEstadoEstoque(estoqueMorango);
-                                    valorSabores = calcularValorSabores(estoqueMorango, estoqueVazioMorango, valorSabores, "Morango");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Morango", estoqueVazioMorango, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -76,7 +74,6 @@ public class App {
                                 case 2: // Goiaba
                                     estoqueGoiaba = calcularEstoque(estoqueVazioGoiaba, estoqueGoiaba, 1);
                                     estoqueVazioGoiaba = retornarEstadoEstoque(estoqueGoiaba);
-                                    valorSabores = calcularValorSabores(estoqueGoiaba, estoqueVazioGoiaba, valorSabores, "Goiaba");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Goiaba", estoqueVazioGoiaba, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -84,7 +81,6 @@ public class App {
                                 case 3: // Abacaxi
                                     estoqueAbacaxi = calcularEstoque(estoqueVazioGoiaba, estoqueAbacaxi, 1);
                                     estoqueVazioGoiaba = retornarEstadoEstoque(estoqueAbacaxi);
-                                    valorSabores = calcularValorSabores(estoqueAbacaxi, estoqueVazioGoiaba, valorSabores, "Abacaxi");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Abacaxi", estoqueVazioGoiaba, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -92,7 +88,6 @@ public class App {
                                 case 4: // Kiwi
                                     estoqueKiwi = calcularEstoque(estoqueVazioGoiaba, estoqueKiwi, 1);
                                     estoqueVazioKiwi = retornarEstadoEstoque(estoqueKiwi);
-                                    valorSabores = calcularValorSabores(estoqueKiwi, estoqueVazioKiwi, valorSabores, "Kiwi");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Kiwi", estoqueVazioKiwi, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -100,7 +95,6 @@ public class App {
                                 case 5: // Laranja
                                     estoqueLaranja = calcularEstoque(estoqueVazioGoiaba, estoqueLaranja, 1);
                                     estoqueVazioLaranja = retornarEstadoEstoque(estoqueLaranja);
-                                    valorSabores = calcularValorSabores(estoqueLaranja, estoqueVazioLaranja, valorSabores, "Laranja");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Laranja", estoqueVazioLaranja, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -108,7 +102,6 @@ public class App {
                                 case 6: // Caja
                                     estoqueCaja = calcularEstoque(estoqueVazioGoiaba, estoqueCaja, 1);
                                     estoqueVazioCaja = retornarEstadoEstoque(estoqueCaja);
-                                    valorSabores = calcularValorSabores(estoqueCaja, estoqueVazioCaja, valorSabores, "Caja");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Caja", estoqueVazioCaja, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -116,7 +109,6 @@ public class App {
                                 case 7: // Cupuacu
                                     estoqueCupuacu = calcularEstoque(estoqueVazioGoiaba, estoqueCupuacu, 1);
                                     estoqueVazioCupuacu = retornarEstadoEstoque(estoqueCupuacu);
-                                    valorSabores = calcularValorSabores(estoqueCupuacu, estoqueVazioCupuacu, valorSabores, "Cupuacu");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Cupuacu", estoqueVazioCupuacu, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -124,7 +116,6 @@ public class App {
                                 case 8: // Bacuri
                                     estoqueBacuri = calcularEstoque(estoqueVazioGoiaba, estoqueBacuri, 1);
                                     estoqueVazioBacuri = retornarEstadoEstoque(estoqueBacuri);
-                                    valorSabores = calcularValorSabores(estoqueBacuri, estoqueVazioBacuri, valorSabores, "Bacuri");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Bacuri", estoqueVazioBacuri, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -132,7 +123,6 @@ public class App {
                                 case 9: // Melancia
                                     estoqueMelancia = calcularEstoque(estoqueVazioGoiaba, estoqueMelancia, 1);
                                     estoqueVazioMelancia = retornarEstadoEstoque(estoqueMelancia);
-                                    valorSabores = calcularValorSabores(estoqueMelancia, estoqueVazioMelancia, valorSabores, "Melancia");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Melancia", estoqueVazioMelancia, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -140,7 +130,6 @@ public class App {
                                 case 10: // Acerola
                                     estoqueAcerola = calcularEstoque(estoqueVazioGoiaba, estoqueAcerola, 1);
                                     estoqueVazioAcerola = retornarEstadoEstoque(estoqueAcerola);
-                                    valorSabores = calcularValorSabores(estoqueAcerola, estoqueVazioAcerola, valorSabores, "Acerola");
                                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atuzalizando o valor
                                     resultadoTroca = trocarSabor("Acerola", estoqueVazioAcerola, todosEstoques);
                                     saboresPedidos.add(resultadoTroca);
@@ -155,6 +144,7 @@ public class App {
                     // Quantidade de copos
                     todosEstoques = new boolean[]{estoqueVazioMorango, estoqueVazioGoiaba, estoqueVazioAbacaxi, estoqueVazioKiwi, estoqueVazioLaranja, estoqueVazioCaja, estoqueVazioCupuacu, estoqueVazioBacuri, estoqueVazioMelancia, estoqueVazioAcerola}; // Atualizando os valores do array
                     estoqueVazio = checarTodosEstoques(todosEstoques);
+                    saboresPedidos.remove(null);
                     if (!estoqueVazio) {
                         do {
                             System.out.println("\nQuantidade de copos desejados");
@@ -163,8 +153,73 @@ public class App {
                                 System.out.println("\n-> Números negativos são inválidos!");
                             } else if (qtdCopos == 0) {
                                 System.out.println("\n-> Valores nulos são invalidos!");
+                            } else if (qtdCopos == 1) { // O estoque não muda se ele pedir somente um copo
+                                valorPedido = (saboresPedidos.size() * 10) * qtdCopos;
                             } else {
-                                valorPedido = valorSabores * qtdCopos;
+                                // Contadores de pedidos repetidos
+                                int contadorMorango = 0;
+                                int contadorGoiaba = 0;
+                                int contadorAbacaxi = 0;
+                                int contadorKiwi = 0;
+                                int contadorLaranja = 0;
+                                int contadorCaja = 0;
+                                int contadorCupuacu = 0;
+                                int contadorBacuri = 0;
+                                int contadorMelancia = 0;
+                                int contadorAcerola = 0;
+                                // Checando se há pedidos repetidos
+                                if (saboresPedidos != null) {
+                                    for (String item : saboresPedidos) {
+                                        switch (item) {
+                                            case "Morango":
+                                                contadorMorango++;
+                                                break;
+                                            case "Goiaba":
+                                                contadorGoiaba++;
+                                                break;
+                                            case "Abacaxi":
+                                                contadorAbacaxi++;
+                                                break;
+                                            case "Kiwi":
+                                                contadorKiwi++;
+                                                break;
+                                            case "Laranja":
+                                                contadorLaranja++;
+                                                break;
+                                            case "Caja":
+                                                contadorCaja++;
+                                                break;
+                                            case "Cupuacu":
+                                                contadorCupuacu++;
+                                                break;
+                                            case "Bacuri":
+                                                contadorBacuri++;
+                                                break;
+                                            case "Melancia":
+                                                contadorMelancia++;
+                                                break;
+                                            case "Acerola":
+                                                contadorAcerola++;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                }
+                                // Mudando os estoques 
+                                estoqueMorango -= contadorMorango * qtdCopos;
+                                estoqueGoiaba -= contadorGoiaba * qtdCopos;
+                                estoqueAbacaxi -= contadorAbacaxi * qtdCopos;
+                                estoqueKiwi -= contadorKiwi * qtdCopos;
+                                estoqueLaranja -= contadorLaranja * qtdCopos;
+                                estoqueCaja -= contadorCaja * qtdCopos;
+                                estoqueCupuacu -= contadorCupuacu * qtdCopos;
+                                estoqueBacuri -= contadorBacuri * qtdCopos;
+                                estoqueMelancia -= contadorMelancia * qtdCopos;
+                                estoqueAcerola -= contadorAcerola * qtdCopos;
+                                // Valor do pedido
+                                valorPedido = (saboresPedidos.size() * 10) * qtdCopos;
+                                System.out.println("foi");
                             }
                         } while (qtdCopos <= 0);
                     }
@@ -209,7 +264,7 @@ public class App {
                 }
             } while ((qtdSabores < 1 || qtdSabores > 3) || (opcaoNovoSabor == 1));
             // Gerar relatório da compra
-            System.out.println("\n\033[0;1m===== Relatório de venda =====");
+            System.out.println("\n\033[0;1m===== Relatório da empresa =====");
             System.out.printf("Quantidade de sucos vendidos: %d\n", qtdTotalCopos);
             System.out.printf("Valor total: R$%.2f\n", valorTotal);
             // Cadastrar novo cliente
@@ -228,7 +283,7 @@ public class App {
                 }
             } while (novoCliente != 1 && novoCliente != 2);
         }
-        System.out.println("Obrigado por usar nosso sistema! :)");
+        System.out.println("\nObrigado por usar nosso sistema! :)\n");
     }
     // MÉTODOS
     public static void showMenu() {
@@ -249,16 +304,6 @@ public class App {
     public static boolean retornarEstadoEstoque(int estoque) {
         boolean resultado = (estoque == 0) ? true : false;
         return resultado;
-    }
-    public static int calcularValorSabores(int estoque, boolean vazio, int valor, String sabor) {
-        if (vazio) {
-            return valor;
-        }
-        if (estoque == 0) { // Feedback para o usuário
-            System.out.println("O estoque acabou de ser zerado");
-        }
-        valor += 10;
-        return valor; // Retorna o valor dos sabores do pedido
     }
     public static String trocarSabor(String sabor, boolean vazio, boolean[] todosEstoques) {
         if (!vazio) {
@@ -284,7 +329,7 @@ public class App {
                                 sabor = validacaoNovoSabor("Goiaba", todosEstoques[1], 2);
                                 break;
                             case 3: // Abacaxi
-                                sabor = validacaoNovoSabor("Abacaxi com hortelã", todosEstoques[2], 3);
+                                sabor = validacaoNovoSabor("Abacaxi", todosEstoques[2], 3);
                                 break;
                             case 4: // Kiwi
                                 sabor = validacaoNovoSabor("Kiwi", todosEstoques[3], 4);
@@ -388,7 +433,6 @@ public class App {
                 }
             } while(opcaoNovoSabor == opcaoAntiga || !novoSaborValido);
         }
-        System.out.println(novoSabor);
         return novoSabor;
     }
     public static boolean testarEstadoNovoSabor(boolean estoque) {
